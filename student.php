@@ -40,12 +40,14 @@
 
                         $data = $connection ->query( "SELECT * FROM students" );
 
+                        $i = 1;
+
                         while ( $student = $data -> fetch_assoc()):
 
                     ?>
 
 						<tr>
-							<td>1</td>
+							<td><?php echo $i; $i++?></td>
 							<td><?php echo $student['name'];?></td>
 							<td><?php echo $student['email'];?></td>
 							<td><?php echo $student['cell'];?></td>
@@ -54,9 +56,9 @@
                             <th><?php echo $student['location'];?></th>
                             <td><img src="images/<?php echo $student['image'];?>" alt=""></td>
 							<td>
-								<a class="btn btn-sm btn-info" href="#">View</a>
-								<a class="btn btn-sm btn-warning" href="#">Edit</a>
-								<a class="btn btn-sm btn-danger" href="#">Delete</a>
+								<a class="btn btn-sm btn-info" href="view.php">View</a>
+								<a class="btn btn-sm btn-warning" href="edit.php">Edit</a>
+								<a class="btn btn-sm btn-danger" href="delete.php">Delete</a>
 							</td>
 						</tr>
                     <?php endwhile; ?>
