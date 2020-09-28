@@ -1,5 +1,20 @@
-
 <?php include_once "app/autoload.php"; ?>
+
+<?php
+
+    if(isset($_GET['id'])){
+
+        $student_id = $_GET['id'];
+
+        $sql = "SELECT * FROM students WHERE id = $student_id";
+        $data = $connection -> query($sql);
+
+        $single_id = $data -> fetch_assoc();
+        
+    }
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +28,7 @@
 
     <style>
 
-        .profile{
+        .profile {
             font-family: "Candara Light";
         }
 
@@ -47,45 +62,50 @@
 		<div class="card">
 			<div class="card-body profile">
 
-                    <img class="shadow-lg" src="images/1bbd4d6ba725f4eea3d4327abf983adaimg.jpg">
+                    <img class="shadow-lg" src="images/<?php echo $single_id['image']?>">
 
-                    <h2>Saiful Islam</h2>
+                    <h2><?php echo $single_id['name']?></h2>
 
                     <table class="table table-striped">
 
                         <tr>
-                            <td>name</td>
-                            <td>name</td>
+                            <td>Name</td>
+                            <td><?php echo $single_id['name']?></td>
                         </tr>
 
                         <tr>
-                            <td>name</td>
-                            <td>name</td>
+                            <td>Email</td>
+                            <td><?php echo $single_id['email']?></td>
                         </tr>
 
                         <tr>
-                            <td>name</td>
-                            <td>name</td>
+                            <td>Cell</td>
+                            <td><?php echo $single_id['cell']?></td>
                         </tr>
 
                         <tr>
-                            <td>name</td>
-                            <td>name</td>
+                            <td>Username</td>
+                            <td><?php echo $single_id['uname']?></td>
                         </tr>
 
                         <tr>
-                            <td>name</td>
-                            <td>name</td>
+                            <td>Age</td>
+                            <td><?php echo $single_id['age']?></td>
                         </tr>
 
                         <tr>
-                            <td>name</td>
-                            <td>name</td>
+                            <td>Gender</td>
+                            <td><?php echo $single_id['gender']?></td>
                         </tr>
 
                         <tr>
-                            <td>name</td>
-                            <td>name</td>
+                            <td>Shift</td>
+                            <td><?php echo $single_id['shift']?></td>
+                        </tr>
+
+                        <tr>
+                            <td>Location</td>
+                            <td><?php echo $single_id['location']?></td>
                         </tr>
 
                     </table>

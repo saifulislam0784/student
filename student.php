@@ -56,7 +56,7 @@
                             <th><?php echo $student['location'];?></th>
                             <td><img src="images/<?php echo $student['image'];?>" alt=""></td>
 							<td>
-								<a class="btn btn-sm btn-info" href="view.php">View</a>
+								<a class="btn btn-sm btn-info" href="view.php?id=<?php echo $student['id'];?>">View</a>
 								<a class="btn btn-sm btn-warning" href="edit.php">Edit</a>
 								<a class="btn btn-sm btn-danger" href="delete.php">Delete</a>
 							</td>
