@@ -1,19 +1,37 @@
 
 <?php include_once "app/autoload.php"; ?>
 
+<?php
+
+
+	if ( isset($_GET['delete'] ) ){
+
+		$delete_id = $_GET['delete'];
+		$delete_image = $_GET['image'];
+
+		$sql = "DELETE FROM students WHERE id = $delete_id";
+		$data = $connection -> query($sql);
+
+		unlink ('images/' . $delete_image);
+		
+		header ( "location:student.php" );
+
+	}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Development Area</title>
 	<!-- ALL CSS FILES  -->
+	<link rel="stylesheet" href="assets/fonts/font-awesome/css/all.css">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/style.css">
 	<link rel="stylesheet" href="assets/css/responsive.css">
 </head>
 <body>
-	
-	
 
 	<div class="wrap-table shadow">
         <a class="btn btn-sm btn-primary"  href="index.php">Add new students</a>
@@ -56,14 +74,13 @@
                             <th><?php echo $student['location'];?></th>
                             <td><img src="images/<?php echo $student['image'];?>" alt=""></td>
 							<td>
-								<a class="btn btn-sm btn-info" href="view.php?id=<?php echo $student['id'];?>">View</a>
-								<a class="btn btn-sm btn-warning" href="edit.php">Edit</a>
-								<a class="btn btn-sm btn-danger" href="delete.php">Delete</a>
+								<a class="btn btn-sm btn-warning" href="#"><i class="far fa-thumbs-up"></i></a>
+								<a class="btn btn-sm btn-info" href="view.php?id=<?php echo $student['id'];?>"><i class="far fa-eye"></i></a>
+								<a class="btn btn-sm btn-warning" href="#"><i class="far fa-edit"></i></a>
+								<a id="delete_btn" class="btn btn-sm btn-danger" href="?delete=<?php echo $student['id'];?>&image=<?php echo $student['image'];?>"><i class="far fa-trash-alt"></i></a>
 							</td>
 						</tr>
-                    <?php endwhile; ?>
-
-						
+                    <?php endwhile; ?>	
 
 					</tbody>
 				</table>
@@ -74,14 +91,29 @@
 
 
 
-
-
-
-
 	<!-- JS FILES  -->
 	<script src="assets/js/jquery-3.4.1.min.js"></script>
 	<script src="assets/js/popper.min.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/custom.js"></script>
+	<script>
+	
+		$('a#delete_btn').click(function(){
+
+			let conf = confirm ('Are you sure');
+
+			if(conf == true){
+				
+				return true;
+
+			}else{
+				
+				return false;
+
+			}
+
+		});
+
+	</script>
 </body>
 </html>
