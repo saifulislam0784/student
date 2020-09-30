@@ -126,7 +126,7 @@
 								<?php endif; ?>
 								
 								<a class="btn btn-sm btn-info" href="view.php?id=<?php echo $student['id'];?>"><i class="far fa-eye"></i></a>
-								<a class="btn btn-sm btn-warning" href="#"><i class="far fa-edit"></i></a>
+								<a class="btn btn-sm btn-warning" href="edit.php?id=<?php echo $student['id'];?>"><i class="far fa-edit"></i></a>
 								<a id="delete_btn" class="btn btn-sm btn-danger" href="?delete=<?php echo $student['id'];?>&image=<?php echo $student['image'];?>"><i class="far fa-trash-alt"></i></a>
 							</td>
 						</tr>
