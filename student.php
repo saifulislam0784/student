@@ -4,16 +4,59 @@
 <?php
 
 
+		/**
+
+         * delete user id
+
+         */
+
+
 	if ( isset($_GET['delete'] ) ){
 
 		$delete_id = $_GET['delete'];
 		$delete_image = $_GET['image'];
 
-		$sql = "DELETE FROM students WHERE id = $delete_id";
+		$sql = "DELETE FROM students WHERE id = '$delete_id'";
 		$data = $connection -> query($sql);
 
 		unlink ('images/' . $delete_image);
 		
+		header ( "location:student.php" );
+
+	}
+
+		/**
+
+         * active user id
+
+         */
+
+	if(isset($_GET['active_id'])){
+
+		$active_id = $_GET['active_id'];
+
+		$sql = "UPDATE students SET status = 'active' WHERE id='$active_id'";
+		$data = $connection -> query($sql);
+
+		header ( "location:student.php" );
+
+	}
+
+
+		/**
+
+         * inactive user id
+
+         */
+
+
+	if(isset($_GET['inactive_id'])){
+
+		$inactive_id = $_GET['inactive_id'];
+
+		$sql = "UPDATE students SET status = 'inactive' WHERE id='$inactive_id'";
+		$data = $connection -> query($sql);
+
 		header ( "location:student.php" );
 
 	}
@@ -72,9 +115,16 @@
                             <th><?php echo $student['age'];?></th>
                             <th><?php echo $student['gender'];?></th>
                             <th><?php echo $student['location'];?></th>
-                            <td><img src="images/<?php echo $student['image'];?>" alt=""></td>
+                            
+							<td><img src="images/<?php echo $student['image']; ?>" alt=""></td>
 							<td>
-								<a class="btn btn-sm btn-warning" href="#"><i class="far fa-thumbs-up"></i></a>
+
+							<?php if($student['status'] == 'inactive'): ?>
+								<a class="btn btn-sm btn-success" href="?active_id=<?php echo $student['id'];?>"><i class="far fa-thumbs-up"></i></a>
+							<?php elseif ($student['status'] == 'active'): ?>
+								<a class="btn btn-sm btn-dark" href="?inactive_id=<?php echo $student['id'];?>"><i class="far fa-thumbs-down"></i></a>
+								<?php endif; ?>
+								
 								<a class="btn btn-sm btn-info" href="view.php?id=<?php echo $student['id'];?>"><i class="far fa-eye"></i></a>
 								<a class="btn btn-sm btn-warning" href="#"><i class="far fa-edit"></i></a>
 								<a id="delete_btn" class="btn btn-sm btn-danger" href="?delete=<?php echo $student['id'];?>&image=<?php echo $student['image'];?>"><i class="far fa-trash-alt"></i></a>

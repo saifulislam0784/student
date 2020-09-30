@@ -13,8 +13,6 @@
 </head>
 <body>
 
-
-
     <?php
 
         /**
@@ -45,6 +43,7 @@
             $file_size = $_FILES['image']['size'];
 
             $unique_file_name = md5(time(). rand()) . $file_name;
+
             /**
              * form validation
              */
@@ -55,16 +54,18 @@
 
             }elseif(filter_var($email, FILTER_VALIDATE_EMAIL) == false){
 
-                    $mess = validationMsg( 'Invalid email',) ;
+                    $mess = validationMsg( 'Invalid email') ;
 
             }elseif ($age <= 5 || $age >= 12){
 
-                $mess = validationMsg( 'Age is not eligible',) ;
+                $mess = validationMsg( 'Age is not eligible') ;
 
-            }else{
+            }else {
 
-                $connection ->query( "INSERT INTO students(name, email, cell, uname, age, gender, shift, location,) VALUES('$name','$email','$cell','$uname','$age','$gender','$shift','$location',)");
 
+                $connection -> query("INSERT INTO students (name, email, cell, uname, age, gender, shift, location,image) VALUES ('$name','$email','$cell','$uname','$age','$gender','$shift','$location','$unique_file_name')");
+                
+                $mess = validationMsg( 'Data stable', 'success');
 
                 move_uploaded_file($file_tmp_name, 'images/students' . $unique_file_name);
             }
