@@ -67,7 +67,7 @@
                 
                 $mess = validationMsg( 'Data stable', 'success');
 
-                move_uploaded_file($file_tmp_name, 'images/students' . $unique_file_name);
+                move_uploaded_file($file_tmp_name, 'images/' . $unique_file_name);
             }
 
 
