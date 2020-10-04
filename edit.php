@@ -28,11 +28,6 @@
 
 
 
-            $file_name = $_FILES['image']['name'];
-            $file_tmp_name = $_FILES['image']['tmp_name'];
-            $file_size = $_FILES['image']['size'];
-
-            $unique_file_name = md5(time(). rand()) . $file_name;
 
             /**
              * form validation
@@ -52,13 +47,28 @@
 
             }else {
 
-                $sql = "UPDATE students SET name='$name', email='$email', cell='$cell', uname='$uname', age='$age', gender='$gender', shift='$shift', location='$location' WHERE id='$edit_id' ";
+                $image_name='';
+
+                if(empty($_FILES['new_image']['name'])){
+
+                    $image_name=$_POST['old_image'];
+
+                }else{
+
+                    $file_name = $_FILES['new_image']['name'];
+                    $file_tmp_name = $_FILES['new_image']['tmp_name'];
+                    $file_size = $_FILES['new_image']['size'];
+                    $image_name = md5(time(). rand()) . $file_name;
+                    move_uploaded_file($file_tmp_name, 'images/' . $image_name);
+
+                }
+
+                $sql = "UPDATE students SET name='$name', email='$email', cell='$cell', uname='$uname', age='$age', gender='$gender', shift='$shift', location='$location', image='$image_name' WHERE id='$edit_id' ";
 
                 $connection -> query($sql);
                 
                 $mess = validationMsg( 'Data stable', 'success');
-
-                move_uploaded_file($file_tmp_name, 'images/students' . $unique_file_name);
+                
             }
 
 
@@ -169,7 +179,7 @@
 
                     <div class="form-group">
                         <label for="">Image</label>
-                        <input name="image" class="form-control" type="file">
+                        <input name="new_image" class="form-control" type="file">
                     </div>
 
 					<div class="form-group">
